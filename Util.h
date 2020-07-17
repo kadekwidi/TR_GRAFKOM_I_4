@@ -19,6 +19,7 @@ enum gCameraMode
 };
 
 // convert hex to rgb
+float *hextoRGB(std::string);
 void glColorHex(std::string);
 
 // resizing the window

@@ -5,6 +5,9 @@ int CameraMode = NORMAL_MODE;
 int SCREEN_WIDTH = 1080;
 int SCREEN_HEIGHT = 720;
 
+// initial canvas color
+float *canvasColor = hextoRGB("2F90E6");
+
 // angle of rotation for the camera direction
 float angleX = 0.0f;
 float angleY = 0.0f;
@@ -61,7 +64,7 @@ int main(int argc, char **argv)
 
 void init(void)
 {
-    glClearColor(0.184f, 0.564f, 0.901f, 0);
+    glClearColor(canvasColor[0], canvasColor[1], canvasColor[2], 0);
     glMatrixMode(GL_PROJECTION);
     glEnable(GL_COLOR_MATERIAL);
     glMatrixMode(GL_MODELVIEW);
@@ -115,7 +118,6 @@ void renderObjects(void)
     glVertex3f(-30.0f, 20.0f, -50.0f);
     glVertex3f(-30.0f, 20.0f, 0.0f);
 
-
     glVertex3f(30.0f, 20.0f, 0.0f);
     glVertex3f(30.0f, 20.0f, -50.0f);
     glVertex3f(-30.0f, 20.0f, -50.0f);
@@ -125,15 +127,15 @@ void renderObjects(void)
     glutSwapBuffers();
 }
 
-void glColorHex(std::string hexVal)
+float *hextoRGB(std::string hexVal)
 {
     int temp;
-    float color[3];
+    float *color = new float[3];
 
     if (!hexVal.length() == 6)
     {
         std::cout << "Invalid hex color -> '" << hexVal << "'" << std::endl;
-        return;
+        return NULL;
     }
     else
     {
@@ -153,13 +155,20 @@ void glColorHex(std::string hexVal)
                 else
                 {
                     std::cout << "Invalid hex color -> '" << hexVal << "'" << std::endl;
-                    return;
+                    return NULL;
                 }
             }
             color[i] = (float)temp / 255;
         }
-        glColor3f(color[0], color[1], color[2]);
+
+        return color;
     }
+}
+
+void glColorHex(std::string hexVal)
+{
+    float *color = hextoRGB(hexVal);
+    glColor3f(color[0], color[1], color[2]);
 }
 
 void resizeWindow(int w, int h)
@@ -195,6 +204,7 @@ void computeCameraPos(float dm, float dmy)
 void pressKey(unsigned char key, int xx, int yy)
 {
     std::cout << key << std::endl;
+    // movement control
     if (CameraMode == NORMAL_MODE)
     {
         switch (key)
@@ -259,13 +269,13 @@ void pressKey(unsigned char key, int xx, int yy)
             break;
         }
     }
-    if (key == 27)
+    if (key == 27)  // Esc
         exit(EXIT_SUCCESS);
     if (key == ' ')
     {
         if (isLighted)
         {
-            glClearColor(0.184f, 0.564f, 0.901f, 0);
+            glClearColor(canvasColor[0], canvasColor[1], canvasColor[2], 0);
             glDisable(GL_LIGHTING);
             isLighted = 0;
         }
