@@ -76,6 +76,103 @@ void init(void)
     glMatrixMode(GL_MODELVIEW);
 }
 
+void awan(void)
+{
+    glPushMatrix();
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+    glColor3ub(153, 223, 255);
+    glutSolidSphere(10, 50, 50);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef(10, 0, 1);
+    glutSolidSphere(5, 50, 50);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef(-2, 6, -2);
+    glutSolidSphere(7, 50, 50);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef(-10, -3, 0);
+    glutSolidSphere(7, 50, 50);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef(6, -2, 2);
+    glutSolidSphere(7, 50, 50);
+    glPopMatrix();
+}
+
+void rumah()
+{
+
+    //tembok
+    glPushMatrix();
+    glColor3f(0, 0, 0.5);
+    glRotatef(50, 0, 1, 0);
+    glutSolidCube(3);
+
+    //pintu
+    glPushMatrix();
+    glColor3f(0.5, 0.8, 0);
+    glTranslatef(-0.6, -1, 1.46);
+    glScalef(7, 10, 1);
+    glutSolidCube(0.1);
+    glPopMatrix();
+    //jendela
+    glPushMatrix();
+    glColor3f(0.5, 0.8, 0);
+    glTranslatef(0.5, 0.1, 1.46);
+    glScalef(3, 3, 1);
+    glutSolidCube(0.1);
+    glPopMatrix();
+
+    glPushMatrix();
+    glColor3f(0.5, 0.8, 0);
+    glTranslatef(0.9, 0.1, 1.46);
+    glScalef(3, 3, 1);
+    glutSolidCube(0.1);
+    glPopMatrix();
+
+    glPushMatrix();
+    glColor3f(0.5, 0.8, 0);
+    glTranslatef(0.9, -0.3, 1.46);
+    glScalef(3, 3, 1);
+    glutSolidCube(0.1);
+    glPopMatrix();
+
+    glPushMatrix();
+    glColor3f(0.5, 0.8, 0);
+    glTranslatef(0.5, -0.3, 1.46);
+    glScalef(3, 3, 1);
+    glutSolidCube(0.1);
+    glPopMatrix();
+    glPopMatrix();
+
+    //atap
+    glPushMatrix();
+    glColor3f(0.8, 0, 0);
+    glRotatef(5, 0, 1, 0);
+    glTranslatef(0, 1.5, 0);
+    glScalef(3, 1.3, 3);
+    glutSolidOctahedron();
+    glPopMatrix();
+}
+
+void dasar()
+{
+    glPushMatrix();
+    glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(1, 10, 0.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(10, 10, 0.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(10, 20, 0.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(1, 20, 0.0);
+    glEnd();
+    glPopMatrix();
+}
+
 void renderObjects(void)
 {
     if (deltaMove || deltaMoveY)
@@ -95,10 +192,10 @@ void renderObjects(void)
 
     glColorHex("D0C995");
     glBegin(GL_QUADS);
-    glVertex3f(-100.0f, 0.0f, -100.0f);
-    glVertex3f(-100.0f, 0.0f, 100.0f);
-    glVertex3f(100.0f, 0.0f, 100.0f);
-    glVertex3f(100.0f, 0.0f, -100.0f);
+    glVertex3f(-150.0f, 0.0f, -100.0f);
+    glVertex3f(-150.0f, 0.0f, 400.0f);
+    glVertex3f(480.0f, 0.0f, 400.0f);
+    glVertex3f(480.0f, 0.0f, -100.0f);
     glEnd();
 
     /* ============================ HOTEL ============================ */
@@ -874,6 +971,166 @@ void renderObjects(void)
         glVertex3f(-20.0f, poolHeight + 0.1f, 40.0f);
         glEnd();
     }
+
+    glPushMatrix();
+    glTranslatef(-75, 110, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-45, 110, -115);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-50, 120, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-140, 90, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-155, 90, -115);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-130, 110, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-190, 110, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-175, 120, -115);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-200, 100, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-30, 110, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-35, 95, -115);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-20, 90, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-80, 90, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(220, 90, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(180, 90, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(190, 110, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(125, 110, -115);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    int l;
+    for (l = 0; l < 12; l++)
+    {
+        glPushMatrix();
+        glTranslatef(260, 0, 235 + (10 * l));
+        glScalef(0.1, 1.2, 0.1);
+        glutSolidSphere(10, 40, 20);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslatef(260, -1, 235 + (10 * l));
+        glScalef(4, 17, 10);
+        glutSolidCube(1);
+        glPopMatrix();
+    }
+
+    //jalan
+    glColor3f(0.0f, 0.0f, 0.0f);
+    glPushMatrix();
+    glTranslatef(150, 0.1, 800);
+    glRotatef(270, 1.0, 0.0, 0.0);
+    glScalef(10, 45, 0);
+    dasar();
+    glPopMatrix();
+
+    //jalan
+    glColor3f(0.0f, 0.0f, 0.0f);
+    glPushMatrix();
+    glTranslatef(-220, 0.1, 330);
+    glRotatef(270, 1.0, 0.0, 0.0);
+    glScalef(70, 10, 0);
+    dasar();
+    glPopMatrix();
+
+    //rumah warga
+    int i;
+    for (i = 0; i < 5; i++)
+    {
+        glPushMatrix();
+        glScalef(10, 10, 10);
+        glTranslatef(-10 + (i * 6), 1.5, 28);
+        glRotatef(40, 0, 1, 0);
+        rumah();
+        glPopMatrix();
+    }
+
+    int j;
+    for (j = 0; j < 5; j++)
+    {
+        glPushMatrix();
+        glScalef(10, 10, 10);
+        glTranslatef(-10 + (j * 6), 1.5, 34);
+        glRotatef(40, 0, 1, 0);
+        rumah();
+        glPopMatrix();
+    }
+
     glutSwapBuffers();
 }
 

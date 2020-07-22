@@ -35,4 +35,8 @@ void releaseKey(unsigned char, int, int);
 void mouseMove(int, int);
 void mouseButton(int, int, int, int);
 
+void dasar();
+void awan(void);
+void rumah();
+
 #endif
