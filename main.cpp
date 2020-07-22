@@ -4,14 +4,14 @@ int SCREEN_WIDTH = 1080;
 int SCREEN_HEIGHT = 720;
 
 // initial canvas color
-float *canvasColor = hextoRGB("2F90E6");
+const float *canvasColor = hextoRGB("2F90E6");
 
 // initial camera mode
 int CameraMode = NORMAL_MODE;
 
 // set camera speed
-const float NormalModeCamSpeed = 5.0f;
-const float BirdModeCamSpeed = 10.0f;
+const float NormalModeCamSpeed = 2.0f;
+const float BirdModeCamSpeed = 20.0f;
 
 // angle of rotation for the camera direction
 float angleX = 0.0f;
@@ -20,10 +20,10 @@ float angleY = 0.0f;
 // actual vector representing the camera's direction
 float lx = 0.0f, ly = 0.0f, lz = -1.0f;
 
-// XZ initial position of the camera
+// position of the camera
 float x = 0.0f;
 float y = 1.0f;
-float z = 10.0f;
+float z = 60.0f;
 
 // the key states. These variables will be zero
 //when no key is being presses
@@ -93,7 +93,7 @@ void renderObjects(void)
 
     /* ============================ GROUND ============================ */
 
-    glColorHex("E5E5E5");
+    glColorHex("D0C995");
     glBegin(GL_QUADS);
     glVertex3f(-100.0f, 0.0f, -100.0f);
     glVertex3f(-100.0f, 0.0f, 100.0f);
@@ -592,6 +592,288 @@ void renderObjects(void)
         }
     }
 
+    /* ============================ POOL ============================ */
+    {
+        glColorHex("2BAAFC");
+        float poolHeight = 0.2f;
+
+        // water
+        glBegin(GL_POLYGON);
+        glVertex3f(20.0f, 0.01f, 20.0f);
+        glVertex3f(20.0f, 0.01f, 46.0f);
+        glVertex3f(-20.0f, 0.01f, 46.0f);
+        glVertex3f(-20.0f, 0.01f, 20.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(14.0f, 0.01f, 40.0f);
+        glVertex3f(30.0f, 0.01f, 40.0f);
+        glVertex3f(30.0f, 0.01f, 56.0f);
+        glVertex3f(14.0f, 0.01f, 56.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-14.0f, 0.01f, 40.0f);
+        glVertex3f(-30.0f, 0.01f, 40.0f);
+        glVertex3f(-30.0f, 0.01f, 56.0f);
+        glVertex3f(-14.0f, 0.01f, 56.0f);
+        glEnd();
+
+        ///// side
+        glColorHex("CFCFCF");
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-20.0f, 0.0f, 20.0f);
+        glVertex3f(-20.0f, poolHeight + 0.1f, 20.0f);
+        glVertex3f(20.0f, poolHeight + 0.1f, 20.0f);
+        glVertex3f(20.0f, 0.0f, 20.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-20.0f, 0.0f, 20.0f);
+        glVertex3f(-20.0f, poolHeight + 0.1f, 20.0f);
+        glVertex3f(-20.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(-20.0f, 0.0f, 40.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-20.0f, 0.0f, 40.0f);
+        glVertex3f(-20.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(-30.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(-30.0f, 0.0f, 40.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-30.0f, 0.0f, 40.0f);
+        glVertex3f(-30.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(-30.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(-30.0f, 0.0f, 56.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-30.0f, 0.0f, 56.0f);
+        glVertex3f(-30.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(-14.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(-14.0f, 0.0f, 56.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-14.0f, 0.0f, 56.0f);
+        glVertex3f(-14.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(-14.0f, poolHeight + 0.1f, 46.0f);
+        glVertex3f(-14.0f, 0.0f, 46.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-14.0f, 0.0f, 46.0f);
+        glVertex3f(-14.0f, poolHeight + 0.1f, 46.0f);
+        glVertex3f(14.0f, poolHeight + 0.1f, 46.0f);
+        glVertex3f(14.0f, 0.0f, 46.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(14.0f, 0.0f, 56.0f);
+        glVertex3f(14.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(14.0f, poolHeight + 0.1f, 46.0f);
+        glVertex3f(14.0f, 0.0f, 46.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(30.0f, 0.0f, 56.0f);
+        glVertex3f(30.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(14.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(14.0f, 0.0f, 56.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(30.0f, 0.0f, 40.0f);
+        glVertex3f(30.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(30.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(30.0f, 0.0f, 56.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(20.0f, 0.0f, 40.0f);
+        glVertex3f(20.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(30.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(30.0f, 0.0f, 40.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(20.0f, 0.0f, 20.0f);
+        glVertex3f(20.0f, poolHeight + 0.1f, 20.0f);
+        glVertex3f(20.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(20.0f, 0.0f, 40.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-26.0f, 0.0f, 19.0f);
+        glVertex3f(-26.0f, poolHeight + 0.1f, 19.0f);
+        glVertex3f(26.0f, poolHeight + 0.1f, 19.0f);
+        glVertex3f(26.0f, 0.0f, 19.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(26.0f, 0.0f, 19.0f);
+        glVertex3f(26.0f, poolHeight + 0.1f, 19.0f);
+        glVertex3f(26.0f, poolHeight + 0.1f, 39.0f);
+        glVertex3f(26.0f, 0.0f, 39.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(26.0f, 0.0f, 39.0f);
+        glVertex3f(26.0f, poolHeight + 0.1f, 39.0f);
+        glVertex3f(31.0f, poolHeight + 0.1f, 39.0f);
+        glVertex3f(31.0f, 0.0f, 39.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(31.0f, 0.0f, 39.0f);
+        glVertex3f(31.0f, poolHeight + 0.1f, 39.0f);
+        glVertex3f(31.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(31.0f, 0.0f, 57.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(31.0f, 0.0f, 57.0f);
+        glVertex3f(31.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(13.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(13.0f, 0.0f, 57.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(13.0f, 0.0f, 57.0f);
+        glVertex3f(13.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(13.0f, poolHeight + 0.1f, 47.0f);
+        glVertex3f(13.0f, 0.0f, 47.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(13.0f, 0.0f, 47.0f);
+        glVertex3f(13.0f, poolHeight + 0.1f, 47.0f);
+        glVertex3f(-13.0f, poolHeight + 0.1f, 47.0f);
+        glVertex3f(-13.0f, 0.0f, 47.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-13.0f, 0.0f, 57.0f);
+        glVertex3f(-13.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(-13.0f, poolHeight + 0.1f, 47.0f);
+        glVertex3f(-13.0f, 0.0f, 47.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-31.0f, 0.0f, 57.0f);
+        glVertex3f(-31.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(-13.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(-13.0f, 0.0f, 57.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-31.0f, 0.0f, 39.0f);
+        glVertex3f(-31.0f, poolHeight + 0.1f, 39.0f);
+        glVertex3f(-31.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(-31.0f, 0.0f, 57.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-26.0f, 0.0f, 39.0f);
+        glVertex3f(-26.0f, poolHeight + 0.1f, 39.0f);
+        glVertex3f(-31.0f, poolHeight + 0.1f, 39.0f);
+        glVertex3f(-31.0f, 0.0f, 39.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-26.0f, 0.0f, 19.0f);
+        glVertex3f(-26.0f, poolHeight + 0.1f, 19.0f);
+        glVertex3f(-26.0f, poolHeight + 0.1f, 39.0f);
+        glVertex3f(-26.0f, 0.0f, 39.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-26.0f, poolHeight + 0.1f, 19.0f);
+        glVertex3f(-26.0f, poolHeight + 0.1f, 20.0f);
+        glVertex3f(26.0f, poolHeight + 0.1f, 20.0f);
+        glVertex3f(26.0f, poolHeight + 0.1f, 19.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(26.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(26.0f, poolHeight + 0.1f, 20.0f);
+        glVertex3f(20.0f, poolHeight + 0.1f, 20.0f);
+        glVertex3f(20.0f, poolHeight + 0.1f, 40.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(26.0f, poolHeight + 0.1f, 39.0f);
+        glVertex3f(26.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(31.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(31.0f, poolHeight + 0.1f, 39.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(31.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(30.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(30.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(31.0f, poolHeight + 0.1f, 57.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(31.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(31.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(13.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(13.0f, poolHeight + 0.1f, 57.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(13.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(14.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(14.0f, poolHeight + 0.1f, 47.0f);
+        glVertex3f(13.0f, poolHeight + 0.1f, 47.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(14.0f, poolHeight + 0.1f, 47.0f);
+        glVertex3f(14.0f, poolHeight + 0.1f, 46.0f);
+        glVertex3f(-14.0f, poolHeight + 0.1f, 46.0f);
+        glVertex3f(-14.0f, poolHeight + 0.1f, 47.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-13.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(-14.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(-14.0f, poolHeight + 0.1f, 47.0f);
+        glVertex3f(-13.0f, poolHeight + 0.1f, 47.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-31.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(-31.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(-13.0f, poolHeight + 0.1f, 56.0f);
+        glVertex3f(-13.0f, poolHeight + 0.1f, 57.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-31.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(-30.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(-30.0f, poolHeight + 0.1f, 57.0f);
+        glVertex3f(-31.0f, poolHeight + 0.1f, 57.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-26.0f, poolHeight + 0.1f, 39.0f);
+        glVertex3f(-26.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(-31.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(-31.0f, poolHeight + 0.1f, 39.0f);
+        glEnd();
+
+        glBegin(GL_POLYGON);
+        glVertex3f(-26.0f, poolHeight + 0.1f, 40.0f);
+        glVertex3f(-26.0f, poolHeight + 0.1f, 20.0f);
+        glVertex3f(-20.0f, poolHeight + 0.1f, 20.0f);
+        glVertex3f(-20.0f, poolHeight + 0.1f, 40.0f);
+        glEnd();
+    }
     glutSwapBuffers();
 }
 
@@ -712,7 +994,7 @@ void pressKey(unsigned char key, int xx, int yy)
 
             x = 0.0f;
             y = 1.0f;
-            z = 15.0f;
+            z = 60.0f;
             lx = 0.0f;
             ly = 0.0f;
             lz = -1.0f;
@@ -745,7 +1027,7 @@ void pressKey(unsigned char key, int xx, int yy)
         {
             glClearColor(canvasColor[0], canvasColor[1], canvasColor[2], 0);
             glDisable(GL_LIGHTING);
-            glDisable(GL_LIGHT7);
+            glDisable(GL_LIGHT0);
             isLighted = 0;
         }
         else
@@ -782,7 +1064,7 @@ void mouseMove(int x, int y)
     // this will only be true when the left button is down
     if (xOrigin >= 0)
     {
-
+        printf("x=%.2f, y=%.2f, z=%.2f\tlx=%.2f, ly=%.2f, lz=%.2f\n", x, y, z, lx, ly, lz);
         // update deltaAngleX
         deltaAngleX = (x - xOrigin) * 0.001f;
         deltaAngleY = (y - yOrigin) * 0.001f;
