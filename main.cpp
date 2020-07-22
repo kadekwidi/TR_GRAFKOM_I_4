@@ -155,20 +155,19 @@ glPopMatrix();
 }
 void rumah(){
 
-//tembok
+
  glPushMatrix();
  glColor3f(0,0,0.5);
  glRotatef(50,0,1,0);
  glutSolidCube(3);
 
-//pintu
 glPushMatrix();
 glColor3f(0.5,0.8,0);
 glTranslatef(-0.6,-1,1.46);
 glScalef(7,10,1);
 glutSolidCube(0.1);
 glPopMatrix();
-//jendela
+
 glPushMatrix();
 glColor3f(0.5,0.8,0);
 glTranslatef(0.5,0.1,1.46);
@@ -198,7 +197,6 @@ glutSolidCube(0.1);
 glPopMatrix();
 glPopMatrix();
 
-//atap
  glPushMatrix();
  glColor3f(0.8,0,0);
  glRotatef(5,0,1,0);
@@ -338,7 +336,7 @@ void renderObjects(void)
     awan();
     glPopMatrix();
 
-    int l;
+    	int l;
 	for (l=0; l<12; l++){
 	glPushMatrix();
 	glTranslatef(260, 0, 235+(10*l));
@@ -384,7 +382,7 @@ void renderObjects(void)
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
 
-	//rumah warga
+	//rumah
 	int i;
 	for ( i=0;i<5;i++){
 	glPushMatrix();
