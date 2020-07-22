@@ -1,17 +1,55 @@
-#include "Util.h"
+#include <windows.h>
+#ifndef UTIL_H
+#define UTIL_H
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <iostream>
+#include <math.h>
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
+enum gCameraMode
+{
+    NORMAL_MODE,
+    BIRD_MODE
+};
+
+// convert hex to rgb
+float *hextoRGB(std::string);
+void glColorHex(std::string);
+
+// resizing the window
+void resizeWindow(int, int);
+
+// computing camera position
+void computeCameraPos(float, float);
+
+void init(void);
+void renderObjects(void);
+void pressKey(unsigned char, int, int);
+void releaseKey(unsigned char, int, int);
+void mouseMove(int, int);
+void mouseButton(int, int, int, int);
+
+#endif
 
 int SCREEN_WIDTH = 1080;
 int SCREEN_HEIGHT = 720;
 
 // initial canvas color
-const float *canvasColor = hextoRGB("2F90E6");
+float *canvasColor = hextoRGB("2F90E6");
 
 // initial camera mode
 int CameraMode = NORMAL_MODE;
 
 // set camera speed
-const float NormalModeCamSpeed = 2.0f;
-const float BirdModeCamSpeed = 20.0f;
+const float NormalModeCamSpeed = 5.0f;
+const float BirdModeCamSpeed = 10.0f;
 
 // angle of rotation for the camera direction
 float angleX = 0.0f;
@@ -20,10 +58,10 @@ float angleY = 0.0f;
 // actual vector representing the camera's direction
 float lx = 0.0f, ly = 0.0f, lz = -1.0f;
 
-// position of the camera
+// XZ initial position of the camera
 float x = 0.0f;
 float y = 1.0f;
-float z = 60.0f;
+float z = 10.0f;
 
 // the key states. These variables will be zero
 //when no key is being presses
@@ -75,7 +113,101 @@ void init(void)
     glLineWidth(3.0f);
     glMatrixMode(GL_MODELVIEW);
 }
+void awan(void){
+    glPushMatrix();
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+    glColor3ub(153, 223, 255);
+    glutSolidSphere(10, 50, 50);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef(10,0,1);
+    glutSolidSphere(5, 50, 50);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef(-2,6,-2);
+    glutSolidSphere(7, 50, 50);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef(-10,-3,0);
+    glutSolidSphere(7, 50, 50);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef(6,-2,2);
+    glutSolidSphere(7, 50, 50);
+    glPopMatrix();
+    }
 
+
+void dasar()
+{
+    glPushMatrix();
+    glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(1, 10, 0.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(10, 10, 0.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(10, 20, 0.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(1, 20, 0.0);
+    glEnd();
+glPopMatrix();
+}
+void rumah(){
+
+//tembok
+ glPushMatrix();
+ glColor3f(0,0,0.5);
+ glRotatef(50,0,1,0);
+ glutSolidCube(3);
+
+//pintu
+glPushMatrix();
+glColor3f(0.5,0.8,0);
+glTranslatef(-0.6,-1,1.46);
+glScalef(7,10,1);
+glutSolidCube(0.1);
+glPopMatrix();
+//jendela
+glPushMatrix();
+glColor3f(0.5,0.8,0);
+glTranslatef(0.5,0.1,1.46);
+glScalef(3,3,1);
+glutSolidCube(0.1);
+glPopMatrix();
+
+glPushMatrix();
+glColor3f(0.5,0.8,0);
+glTranslatef(0.9,0.1,1.46);
+glScalef(3,3,1);
+glutSolidCube(0.1);
+glPopMatrix();
+
+glPushMatrix();
+glColor3f(0.5,0.8,0);
+glTranslatef(0.9,-0.3,1.46);
+glScalef(3,3,1);
+glutSolidCube(0.1);
+glPopMatrix();
+
+glPushMatrix();
+glColor3f(0.5,0.8,0);
+glTranslatef(0.5,-0.3,1.46);
+glScalef(3,3,1);
+glutSolidCube(0.1);
+glPopMatrix();
+glPopMatrix();
+
+//atap
+ glPushMatrix();
+ glColor3f(0.8,0,0);
+ glRotatef(5,0,1,0);
+ glTranslatef(0,1.5,0);
+ glScalef(3,1.3,3);
+ glutSolidOctahedron();
+ glPopMatrix();
+
+}
 void renderObjects(void)
 {
     if (deltaMove || deltaMoveY)
@@ -93,7 +225,7 @@ void renderObjects(void)
 
     /* ============================ GROUND ============================ */
 
-    glColorHex("D0C995");
+    glColorHex("E5E5E5");
     glBegin(GL_QUADS);
     glVertex3f(-100.0f, 0.0f, -100.0f);
     glVertex3f(-100.0f, 0.0f, 100.0f);
@@ -103,9 +235,179 @@ void renderObjects(void)
 
     /* ============================ HOTEL ============================ */
     {
-        glColorHex("4F514B");
+    glPushMatrix();
+    glTranslatef(-75, 110, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-45, 110, -115);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-50, 120, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-140, 90, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-155, 90, -115);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-130, 110, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-190, 110, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-175, 120, -115);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-200, 100, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-30, 110, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-35, 95, -115);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-20, 90, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-80, 90, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(220, 90, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(180, 90, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+
+    glPushMatrix();
+    glTranslatef(190, 110, -120);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(125, 110, -115);
+    glScalef(1.8, 1.0, 1.0);
+    awan();
+    glPopMatrix();
+
+    int l;
+	for (l=0; l<12; l++){
+	glPushMatrix();
+	glTranslatef(260, 0, 235+(10*l));
+	glScalef(0.1, 1.2, 0.1);
+	glutSolidSphere(10, 40, 20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(260, -1, 235+(10*l));
+	glScalef(4, 17, 10);
+	glutSolidCube(1);
+	glPopMatrix();
+
+
+	}
+	//jalan
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glPushMatrix();
+	glTranslatef(150, -9, 800);
+	glRotatef(270, 1.0, 0.0, 0.0);
+	glScalef(10, 45, 0);
+	dasar();
+	glPopMatrix();
+
+	//jalan
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glPushMatrix();
+	glTranslatef(-220, -9, 330);
+	glRotatef(270, 1.0, 0.0, 0.0);
+	glScalef(70, 10, 0);
+	dasar();
+	glPopMatrix();
+
+    //dasar
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glPushMatrix();
+	glEnable(GL_TEXTURE_2D);
+    //glBindTexture(GL_TEXTURE_2D,texture[0]);
+	glTranslatef(-220, -10, 800);
+	glRotatef(270, 1.0, 0.0, 0.0);
+	glScalef(70, 45, 0);
+	dasar();
+	glDisable(GL_TEXTURE_2D);
+	glPopMatrix();
+
+	//rumah warga
+	int i;
+	for ( i=0;i<5;i++){
+	glPushMatrix();
+	glScalef(10, 10, 10);
+	glTranslatef(-10+(i*6), 1, 28);
+	glRotatef(40, 0, 1, 0);
+	rumah();
+	glPopMatrix();
+	}
+
+	int j;
+	for ( j=0;j<5;j++){
+	glPushMatrix();
+	glScalef(10, 10, 10);
+	glTranslatef(-10+(j*6), 1, 34);
+	glRotatef(40, 0, 1, 0);
+	rumah();
+	glPopMatrix();
+	}
+
         // ==============================>> part 1
         {
+            glColorHex("2B2D57");
             glBegin(GL_QUADS);
             glVertex3f(30.0f, 0.0f, 0.0f);
             glVertex3f(-30.0f, 0.0f, 0.0f);
@@ -127,6 +429,7 @@ void renderObjects(void)
             glVertex3f(-30.0f, 20.0f, -50.0f);
             glVertex3f(-30.0f, 20.0f, 0.0f);
 
+            glColorHex("3A3B35");
             glVertex3f(30.0f, 20.0f, 0.0f);
             glVertex3f(30.0f, 20.0f, -50.0f);
             glVertex3f(-30.0f, 20.0f, -50.0f);
@@ -134,8 +437,8 @@ void renderObjects(void)
             glEnd();
         }
 
-        glColorHex("474841");
         // ==============================>> part 2
+        glColorHex("00FF00");
         //////////////////////////// left
         {
             glBegin(GL_QUADS);
@@ -218,7 +521,7 @@ void renderObjects(void)
         }
 
         // ==============================>> part 3
-        glColorHex("002833");
+        glColorHex("3A3B35");
         //////////////////////////// left
         {
             //////////////////// front
@@ -317,117 +620,7 @@ void renderObjects(void)
         }
         //////////////////////////// right
         {
-            //////////////////// front
-            glBegin(GL_POLYGON);
-            glVertex3f(16.8f, 26.0f, -2.6f);
-            glVertex3f(29.1f, 26.0f, -6.7f);
-            glVertex3f(29.8f, 57.0f, -6.7f);
-            glVertex3f(16.0f, 52.0f, -2.6f);
-            glEnd();
 
-            glBegin(GL_POLYGON);
-            glVertex3f(16.0f, 52.0f, -2.6f);
-            glVertex3f(29.8f, 57.0f, -6.7f);
-            glVertex3f(28.6f, 67.0f, -6.7f);
-            glVertex3f(17.0f, 70.0f, -2.6f);
-            glEnd();
-
-            glBegin(GL_POLYGON);
-            glVertex3f(17.0f, 70.0f, -2.6f);
-            glVertex3f(28.6f, 67.0f, -6.7f);
-            glVertex3f(28.1f, 86.0f, -6.7f);
-            glVertex3f(17.3f, 86.0f, -2.6f);
-            glEnd();
-
-            //////////////////// front left
-            glBegin(GL_POLYGON);
-            glVertex3f(2.6f, 26.0f, -35.0f);
-            glVertex3f(16.8f, 26.0f, -2.6f);
-            glVertex3f(2.6f, 52.0f, -35.0f);
-            glEnd();
-
-            glBegin(GL_POLYGON);
-            glVertex3f(2.6f, 52.0f, -35.0f);
-            glVertex3f(16.8f, 26.0f, -2.6f);
-            glVertex3f(16.0f, 52.0f, -2.6f);
-            glEnd();
-
-            glBegin(GL_POLYGON);
-            glVertex3f(2.6f, 52.0f, -35.0f);
-            glVertex3f(16.0f, 52.0f, -2.6f);
-            glVertex3f(2.6f, 81.0f, -35.0f);
-            glEnd();
-
-            glBegin(GL_POLYGON);
-            glVertex3f(2.6f, 81.0f, -35.0f);
-            glVertex3f(16.0f, 52.0f, -2.6f);
-            glVertex3f(17.0f, 70.0f, -2.6f);
-            glEnd();
-
-            glBegin(GL_POLYGON);
-            glVertex3f(2.6f, 81.0f, -35.0f);
-            glVertex3f(17.0f, 70.0f, -2.6f);
-            glVertex3f(17.3f, 86.0f, -2.6f);
-            glVertex3f(2.6f, 86.0f, -35.0f);
-            glEnd();
-
-            //////////////////// front right
-            glBegin(GL_POLYGON);
-            glVertex3f(29.1f, 26.0f, -6.7f);
-            glVertex3f(28.1f, 26.0f, -41.3f);
-            glVertex3f(29.8f, 57.0f, -6.7f);
-            glEnd();
-
-            glBegin(GL_POLYGON);
-            glVertex3f(29.8f, 57.0f, -6.7f);
-            glVertex3f(28.1f, 26.0f, -41.3f);
-            glVertex3f(28.1f, 57.0f, -41.3f);
-            glEnd();
-
-            glBegin(GL_POLYGON);
-            glVertex3f(29.8f, 57.0f, -6.7f);
-            glVertex3f(28.1f, 57.0f, -41.3f);
-            glVertex3f(28.6f, 67.0f, -6.7f);
-            glEnd();
-
-            glBegin(GL_POLYGON);
-            glVertex3f(28.6f, 67.0f, -6.7f);
-            glVertex3f(28.1f, 57.0f, -41.3f);
-            glVertex3f(28.1f, 77.7f, -41.3f);
-            glEnd();
-
-            glBegin(GL_POLYGON);
-            glVertex3f(28.6f, 67.0f, -6.7f);
-            glVertex3f(28.1f, 77.7f, -41.3f);
-            glVertex3f(28.1f, 86.0f, -6.7f);
-            glEnd();
-
-            glBegin(GL_POLYGON);
-            glVertex3f(28.1f, 86.0f, -6.7f);
-            glVertex3f(28.1f, 77.7f, -41.3f);
-            glVertex3f(28.1f, 86.0f, -41.3f);
-            glEnd();
-            //////////////////// rear right
-            glBegin(GL_POLYGON);
-            glVertex3f(28.1f, 26.0f, -41.3f);
-            glVertex3f(12.0f, 26.0f, -48.6f);
-            glVertex3f(12.0f, 86.0f, -48.6f);
-            glVertex3f(28.1f, 86.0f, -41.3f);
-            glEnd();
-            glBegin(GL_POLYGON);
-            glVertex3f(12.0f, 26.0f, -48.6f);
-            glVertex3f(2.6f, 26.0f, -35.0f);
-            glVertex3f(2.6f, 86.0f, -35.0f);
-            glVertex3f(12.0f, 86.0f, -48.6f);
-            glEnd();
-            //////////////////// top
-            glBegin(GL_POLYGON);
-            glVertex3f(17.3f, 86.0f, -2.6f);
-            glVertex3f(28.1f, 86.0f, -6.7f);
-            glVertex3f(28.1f, 86.0f, -41.3f);
-            glVertex3f(12.0f, 86.0f, -48.6f);
-            glVertex3f(2.6f, 86.0f, -35.0f);
-            glEnd();
         }
         // ==============================>> LINES
         glColorHex("FFFFFF");
@@ -520,359 +713,8 @@ void renderObjects(void)
             glVertex3f(2.6f, 26.0f, -35.0f);
             glVertex3f(16.8f, 26.0f, -2.6f);
 
-            glVertex3f(16.8f, 26.0f, -2.6f);
-            glVertex3f(16.0f, 52.0f, -2.6f);
-            glVertex3f(16.0f, 52.0f, -2.6f);
-            glVertex3f(17.0f, 70.0f, -2.6f);
-            glVertex3f(17.0f, 70.0f, -2.6f);
-            glVertex3f(17.3f, 86.0f, -2.6f);
-            glVertex3f(17.3f, 86.0f, -2.6f);
-            glVertex3f(28.1f, 86.0f, -6.7f);
-            glVertex3f(28.1f, 86.0f, -6.7f);
-            glVertex3f(28.6f, 67.0f, -6.7f);
-            glVertex3f(28.6f, 67.0f, -6.7f);
-            glVertex3f(29.8f, 57.0f, -6.7f);
-            glVertex3f(29.8f, 57.0f, -6.7f);
-            glVertex3f(29.1f, 26.0f, -6.7f);
-
-            glVertex3f(2.6f, 26.0f, -35.0f);
-            glVertex3f(2.6f, 86.0f, -35.0f);
-            glVertex3f(2.6f, 86.0f, -35.0f);
-            glVertex3f(17.3f, 86.0f, -2.6f);
-
-            glVertex3f(12.0f, 26.0f, -48.6f);
-            glVertex3f(12.0f, 86.0f, -48.6f);
-            glVertex3f(12.0f, 86.0f, -48.6f);
-            glVertex3f(2.6f, 86.0f, -35.0f);
-
-            glVertex3f(28.1f, 26.0f, -41.3f);
-            glVertex3f(28.1f, 86.0f, -41.3f);
-            glVertex3f(28.1f, 86.0f, -41.3f);
-            glVertex3f(12.0f, 86.0f, -48.6f);
-
-            glVertex3f(28.1f, 86.0f, -41.3f);
-            glVertex3f(28.1f, 86.0f, -6.7f);
-
-            //front inside
-            glVertex3f(16.0f, 52.0f, -2.6f);
-            glVertex3f(29.8f, 57.0f, -6.7f);
-            glVertex3f(28.6f, 67.0f, -6.7f);
-            glVertex3f(17.0f, 70.0f, -2.6f);
-            //front left inside
-            glVertex3f(16.8f, 26.0f, -2.6f);
-            glVertex3f(2.6f, 52.0f, -35.0f);
-            glVertex3f(2.6f, 52.0f, -35.0f);
-            glVertex3f(16.0f, 52.0f, -2.6f);
-            glVertex3f(16.0f, 52.0f, -2.6f);
-            glVertex3f(2.6f, 81.0f, -35.0f);
-            glVertex3f(2.6f, 81.0f, -35.0f);
-            glVertex3f(17.0f, 70.0f, -2.6f);
-            //front right inside
-            glVertex3f(28.1f, 26.0f, -41.3f);
-            glVertex3f(29.8f, 57.0f, -6.7f);
-            glVertex3f(29.8f, 57.0f, -6.7f);
-            glVertex3f(28.1f, 57.0f, -41.3f);
-            glVertex3f(28.1f, 57.0f, -41.3f);
-            glVertex3f(28.6f, 67.0f, -6.7f);
-            glVertex3f(28.6f, 67.0f, -6.7f);
-            glVertex3f(28.1f, 77.5f, -41.3f);
-            glVertex3f(28.1f, 77.5f, -41.3f);
-            glVertex3f(28.1f, 86.0f, -6.7f);
-            // rear right inside
-            glVertex3f(28.1f, 57.0f, -41.3f);
-            glVertex3f(12.0f, 57.0f, -48.6f);
-            glVertex3f(28.1f, 77.5f, -41.3f);
-            glVertex3f(12.0f, 77.5f, -48.6f);
-            // rear left inside
-            glVertex3f(12.0f, 57.0f, -48.6f);
-            glVertex3f(2.6f, 52.0f, -35.0f);
-            glVertex3f(12.0f, 77.5f, -48.6f);
-            glVertex3f(2.6f, 81.0f, -35.0f);
             glEnd();
         }
-    }
-
-    /* ============================ POOL ============================ */
-    {
-        glColorHex("2BAAFC");
-        float poolHeight = 0.2f;
-
-        // water
-        glBegin(GL_POLYGON);
-        glVertex3f(20.0f, 0.01f, 20.0f);
-        glVertex3f(20.0f, 0.01f, 46.0f);
-        glVertex3f(-20.0f, 0.01f, 46.0f);
-        glVertex3f(-20.0f, 0.01f, 20.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(14.0f, 0.01f, 40.0f);
-        glVertex3f(30.0f, 0.01f, 40.0f);
-        glVertex3f(30.0f, 0.01f, 56.0f);
-        glVertex3f(14.0f, 0.01f, 56.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-14.0f, 0.01f, 40.0f);
-        glVertex3f(-30.0f, 0.01f, 40.0f);
-        glVertex3f(-30.0f, 0.01f, 56.0f);
-        glVertex3f(-14.0f, 0.01f, 56.0f);
-        glEnd();
-
-        ///// side
-        glColorHex("CFCFCF");
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-20.0f, 0.0f, 20.0f);
-        glVertex3f(-20.0f, poolHeight + 0.1f, 20.0f);
-        glVertex3f(20.0f, poolHeight + 0.1f, 20.0f);
-        glVertex3f(20.0f, 0.0f, 20.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-20.0f, 0.0f, 20.0f);
-        glVertex3f(-20.0f, poolHeight + 0.1f, 20.0f);
-        glVertex3f(-20.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(-20.0f, 0.0f, 40.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-20.0f, 0.0f, 40.0f);
-        glVertex3f(-20.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(-30.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(-30.0f, 0.0f, 40.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-30.0f, 0.0f, 40.0f);
-        glVertex3f(-30.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(-30.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(-30.0f, 0.0f, 56.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-30.0f, 0.0f, 56.0f);
-        glVertex3f(-30.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(-14.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(-14.0f, 0.0f, 56.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-14.0f, 0.0f, 56.0f);
-        glVertex3f(-14.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(-14.0f, poolHeight + 0.1f, 46.0f);
-        glVertex3f(-14.0f, 0.0f, 46.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-14.0f, 0.0f, 46.0f);
-        glVertex3f(-14.0f, poolHeight + 0.1f, 46.0f);
-        glVertex3f(14.0f, poolHeight + 0.1f, 46.0f);
-        glVertex3f(14.0f, 0.0f, 46.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(14.0f, 0.0f, 56.0f);
-        glVertex3f(14.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(14.0f, poolHeight + 0.1f, 46.0f);
-        glVertex3f(14.0f, 0.0f, 46.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(30.0f, 0.0f, 56.0f);
-        glVertex3f(30.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(14.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(14.0f, 0.0f, 56.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(30.0f, 0.0f, 40.0f);
-        glVertex3f(30.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(30.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(30.0f, 0.0f, 56.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(20.0f, 0.0f, 40.0f);
-        glVertex3f(20.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(30.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(30.0f, 0.0f, 40.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(20.0f, 0.0f, 20.0f);
-        glVertex3f(20.0f, poolHeight + 0.1f, 20.0f);
-        glVertex3f(20.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(20.0f, 0.0f, 40.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-26.0f, 0.0f, 19.0f);
-        glVertex3f(-26.0f, poolHeight + 0.1f, 19.0f);
-        glVertex3f(26.0f, poolHeight + 0.1f, 19.0f);
-        glVertex3f(26.0f, 0.0f, 19.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(26.0f, 0.0f, 19.0f);
-        glVertex3f(26.0f, poolHeight + 0.1f, 19.0f);
-        glVertex3f(26.0f, poolHeight + 0.1f, 39.0f);
-        glVertex3f(26.0f, 0.0f, 39.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(26.0f, 0.0f, 39.0f);
-        glVertex3f(26.0f, poolHeight + 0.1f, 39.0f);
-        glVertex3f(31.0f, poolHeight + 0.1f, 39.0f);
-        glVertex3f(31.0f, 0.0f, 39.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(31.0f, 0.0f, 39.0f);
-        glVertex3f(31.0f, poolHeight + 0.1f, 39.0f);
-        glVertex3f(31.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(31.0f, 0.0f, 57.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(31.0f, 0.0f, 57.0f);
-        glVertex3f(31.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(13.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(13.0f, 0.0f, 57.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(13.0f, 0.0f, 57.0f);
-        glVertex3f(13.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(13.0f, poolHeight + 0.1f, 47.0f);
-        glVertex3f(13.0f, 0.0f, 47.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(13.0f, 0.0f, 47.0f);
-        glVertex3f(13.0f, poolHeight + 0.1f, 47.0f);
-        glVertex3f(-13.0f, poolHeight + 0.1f, 47.0f);
-        glVertex3f(-13.0f, 0.0f, 47.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-13.0f, 0.0f, 57.0f);
-        glVertex3f(-13.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(-13.0f, poolHeight + 0.1f, 47.0f);
-        glVertex3f(-13.0f, 0.0f, 47.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-31.0f, 0.0f, 57.0f);
-        glVertex3f(-31.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(-13.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(-13.0f, 0.0f, 57.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-31.0f, 0.0f, 39.0f);
-        glVertex3f(-31.0f, poolHeight + 0.1f, 39.0f);
-        glVertex3f(-31.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(-31.0f, 0.0f, 57.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-26.0f, 0.0f, 39.0f);
-        glVertex3f(-26.0f, poolHeight + 0.1f, 39.0f);
-        glVertex3f(-31.0f, poolHeight + 0.1f, 39.0f);
-        glVertex3f(-31.0f, 0.0f, 39.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-26.0f, 0.0f, 19.0f);
-        glVertex3f(-26.0f, poolHeight + 0.1f, 19.0f);
-        glVertex3f(-26.0f, poolHeight + 0.1f, 39.0f);
-        glVertex3f(-26.0f, 0.0f, 39.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-26.0f, poolHeight + 0.1f, 19.0f);
-        glVertex3f(-26.0f, poolHeight + 0.1f, 20.0f);
-        glVertex3f(26.0f, poolHeight + 0.1f, 20.0f);
-        glVertex3f(26.0f, poolHeight + 0.1f, 19.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(26.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(26.0f, poolHeight + 0.1f, 20.0f);
-        glVertex3f(20.0f, poolHeight + 0.1f, 20.0f);
-        glVertex3f(20.0f, poolHeight + 0.1f, 40.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(26.0f, poolHeight + 0.1f, 39.0f);
-        glVertex3f(26.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(31.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(31.0f, poolHeight + 0.1f, 39.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(31.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(30.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(30.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(31.0f, poolHeight + 0.1f, 57.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(31.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(31.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(13.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(13.0f, poolHeight + 0.1f, 57.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(13.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(14.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(14.0f, poolHeight + 0.1f, 47.0f);
-        glVertex3f(13.0f, poolHeight + 0.1f, 47.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(14.0f, poolHeight + 0.1f, 47.0f);
-        glVertex3f(14.0f, poolHeight + 0.1f, 46.0f);
-        glVertex3f(-14.0f, poolHeight + 0.1f, 46.0f);
-        glVertex3f(-14.0f, poolHeight + 0.1f, 47.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-13.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(-14.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(-14.0f, poolHeight + 0.1f, 47.0f);
-        glVertex3f(-13.0f, poolHeight + 0.1f, 47.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-31.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(-31.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(-13.0f, poolHeight + 0.1f, 56.0f);
-        glVertex3f(-13.0f, poolHeight + 0.1f, 57.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-31.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(-30.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(-30.0f, poolHeight + 0.1f, 57.0f);
-        glVertex3f(-31.0f, poolHeight + 0.1f, 57.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-26.0f, poolHeight + 0.1f, 39.0f);
-        glVertex3f(-26.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(-31.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(-31.0f, poolHeight + 0.1f, 39.0f);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-        glVertex3f(-26.0f, poolHeight + 0.1f, 40.0f);
-        glVertex3f(-26.0f, poolHeight + 0.1f, 20.0f);
-        glVertex3f(-20.0f, poolHeight + 0.1f, 20.0f);
-        glVertex3f(-20.0f, poolHeight + 0.1f, 40.0f);
-        glEnd();
     }
     glutSwapBuffers();
 }
@@ -994,7 +836,7 @@ void pressKey(unsigned char key, int xx, int yy)
 
             x = 0.0f;
             y = 1.0f;
-            z = 60.0f;
+            z = 15.0f;
             lx = 0.0f;
             ly = 0.0f;
             lz = -1.0f;
@@ -1027,7 +869,7 @@ void pressKey(unsigned char key, int xx, int yy)
         {
             glClearColor(canvasColor[0], canvasColor[1], canvasColor[2], 0);
             glDisable(GL_LIGHTING);
-            glDisable(GL_LIGHT0);
+            glDisable(GL_LIGHT7);
             isLighted = 0;
         }
         else
@@ -1064,7 +906,7 @@ void mouseMove(int x, int y)
     // this will only be true when the left button is down
     if (xOrigin >= 0)
     {
-        printf("x=%.2f, y=%.2f, z=%.2f\tlx=%.2f, ly=%.2f, lz=%.2f\n", x, y, z, lx, ly, lz);
+
         // update deltaAngleX
         deltaAngleX = (x - xOrigin) * 0.001f;
         deltaAngleY = (y - yOrigin) * 0.001f;
