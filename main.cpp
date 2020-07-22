@@ -197,13 +197,13 @@ glutSolidCube(0.1);
 glPopMatrix();
 glPopMatrix();
 
- glPushMatrix();
- glColor3f(0.8,0,0);
- glRotatef(5,0,1,0);
- glTranslatef(0,1.5,0);
- glScalef(3,1.3,3);
- glutSolidOctahedron();
- glPopMatrix();
+glPushMatrix();
+glColor3f(0.8,0,0);
+glRotatef(5,0,1,0);
+glTranslatef(0,1.5,0);
+glScalef(3,1.3,3);
+glutSolidOctahedron();
+glPopMatrix();
 
 }
 void renderObjects(void)
